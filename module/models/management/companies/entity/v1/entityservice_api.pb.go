@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -25,87 +26,407 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type EchoRequest struct {
+// Algo.
+type GetEntityRequest struct {
 	Value                string   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *EchoRequest) Reset()         { *m = EchoRequest{} }
-func (m *EchoRequest) String() string { return proto.CompactTextString(m) }
-func (*EchoRequest) ProtoMessage()    {}
-func (*EchoRequest) Descriptor() ([]byte, []int) {
+func (m *GetEntityRequest) Reset()         { *m = GetEntityRequest{} }
+func (m *GetEntityRequest) String() string { return proto.CompactTextString(m) }
+func (*GetEntityRequest) ProtoMessage()    {}
+func (*GetEntityRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_983135ed5bb6dd32, []int{0}
 }
 
-func (m *EchoRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EchoRequest.Unmarshal(m, b)
+func (m *GetEntityRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetEntityRequest.Unmarshal(m, b)
 }
-func (m *EchoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EchoRequest.Marshal(b, m, deterministic)
+func (m *GetEntityRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetEntityRequest.Marshal(b, m, deterministic)
 }
-func (m *EchoRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EchoRequest.Merge(m, src)
+func (m *GetEntityRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetEntityRequest.Merge(m, src)
 }
-func (m *EchoRequest) XXX_Size() int {
-	return xxx_messageInfo_EchoRequest.Size(m)
+func (m *GetEntityRequest) XXX_Size() int {
+	return xxx_messageInfo_GetEntityRequest.Size(m)
 }
-func (m *EchoRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_EchoRequest.DiscardUnknown(m)
+func (m *GetEntityRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetEntityRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_EchoRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetEntityRequest proto.InternalMessageInfo
 
-func (m *EchoRequest) GetValue() string {
+func (m *GetEntityRequest) GetValue() string {
 	if m != nil {
 		return m.Value
 	}
 	return ""
 }
 
-type EchoResponse struct {
-	Value                string   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+// Algo.
+type GetEntityResponse struct {
+	MyBool bool   `protobuf:"varint,1,opt,name=my_bool,json=myBool,proto3" json:"my_bool,omitempty"`
+	Code   string `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
+	// Types that are valid to be assigned to ExampleOneof:
+	//	*GetEntityResponse_Descerror
+	//	*GetEntityResponse_Companyinfo
+	ExampleOneof         isGetEntityResponse_ExampleOneof `protobuf_oneof:"example_oneof"`
+	XXX_NoUnkeyedLiteral struct{}                         `json:"-"`
+	XXX_unrecognized     []byte                           `json:"-"`
+	XXX_sizecache        int32                            `json:"-"`
+}
+
+func (m *GetEntityResponse) Reset()         { *m = GetEntityResponse{} }
+func (m *GetEntityResponse) String() string { return proto.CompactTextString(m) }
+func (*GetEntityResponse) ProtoMessage()    {}
+func (*GetEntityResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_983135ed5bb6dd32, []int{1}
+}
+
+func (m *GetEntityResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetEntityResponse.Unmarshal(m, b)
+}
+func (m *GetEntityResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetEntityResponse.Marshal(b, m, deterministic)
+}
+func (m *GetEntityResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetEntityResponse.Merge(m, src)
+}
+func (m *GetEntityResponse) XXX_Size() int {
+	return xxx_messageInfo_GetEntityResponse.Size(m)
+}
+func (m *GetEntityResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetEntityResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetEntityResponse proto.InternalMessageInfo
+
+func (m *GetEntityResponse) GetMyBool() bool {
+	if m != nil {
+		return m.MyBool
+	}
+	return false
+}
+
+func (m *GetEntityResponse) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
+type isGetEntityResponse_ExampleOneof interface {
+	isGetEntityResponse_ExampleOneof()
+}
+
+type GetEntityResponse_Descerror struct {
+	Descerror string `protobuf:"bytes,4,opt,name=descerror,proto3,oneof"`
+}
+
+type GetEntityResponse_Companyinfo struct {
+	Companyinfo *Companyinfo `protobuf:"bytes,5,opt,name=companyinfo,proto3,oneof"`
+}
+
+func (*GetEntityResponse_Descerror) isGetEntityResponse_ExampleOneof() {}
+
+func (*GetEntityResponse_Companyinfo) isGetEntityResponse_ExampleOneof() {}
+
+func (m *GetEntityResponse) GetExampleOneof() isGetEntityResponse_ExampleOneof {
+	if m != nil {
+		return m.ExampleOneof
+	}
+	return nil
+}
+
+func (m *GetEntityResponse) GetDescerror() string {
+	if x, ok := m.GetExampleOneof().(*GetEntityResponse_Descerror); ok {
+		return x.Descerror
+	}
+	return ""
+}
+
+func (m *GetEntityResponse) GetCompanyinfo() *Companyinfo {
+	if x, ok := m.GetExampleOneof().(*GetEntityResponse_Companyinfo); ok {
+		return x.Companyinfo
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*GetEntityResponse) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*GetEntityResponse_Descerror)(nil),
+		(*GetEntityResponse_Companyinfo)(nil),
+	}
+}
+
+// Algo.
+type EntityRequest struct {
+	Value                string       `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Companyinfo          *Companyinfo `protobuf:"bytes,2,opt,name=companyinfo,proto3" json:"companyinfo,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *EntityRequest) Reset()         { *m = EntityRequest{} }
+func (m *EntityRequest) String() string { return proto.CompactTextString(m) }
+func (*EntityRequest) ProtoMessage()    {}
+func (*EntityRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_983135ed5bb6dd32, []int{2}
+}
+
+func (m *EntityRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EntityRequest.Unmarshal(m, b)
+}
+func (m *EntityRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EntityRequest.Marshal(b, m, deterministic)
+}
+func (m *EntityRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EntityRequest.Merge(m, src)
+}
+func (m *EntityRequest) XXX_Size() int {
+	return xxx_messageInfo_EntityRequest.Size(m)
+}
+func (m *EntityRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_EntityRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EntityRequest proto.InternalMessageInfo
+
+func (m *EntityRequest) GetValue() string {
+	if m != nil {
+		return m.Value
+	}
+	return ""
+}
+
+func (m *EntityRequest) GetCompanyinfo() *Companyinfo {
+	if m != nil {
+		return m.Companyinfo
+	}
+	return nil
+}
+
+// Algo.
+type EntityResponse struct {
+	MyBool               bool     `protobuf:"varint,1,opt,name=my_bool,json=myBool,proto3" json:"my_bool,omitempty"`
+	Status               string   `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	Code                 string   `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *EchoResponse) Reset()         { *m = EchoResponse{} }
-func (m *EchoResponse) String() string { return proto.CompactTextString(m) }
-func (*EchoResponse) ProtoMessage()    {}
-func (*EchoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_983135ed5bb6dd32, []int{1}
+func (m *EntityResponse) Reset()         { *m = EntityResponse{} }
+func (m *EntityResponse) String() string { return proto.CompactTextString(m) }
+func (*EntityResponse) ProtoMessage()    {}
+func (*EntityResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_983135ed5bb6dd32, []int{3}
 }
 
-func (m *EchoResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EchoResponse.Unmarshal(m, b)
+func (m *EntityResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EntityResponse.Unmarshal(m, b)
 }
-func (m *EchoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EchoResponse.Marshal(b, m, deterministic)
+func (m *EntityResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EntityResponse.Marshal(b, m, deterministic)
 }
-func (m *EchoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EchoResponse.Merge(m, src)
+func (m *EntityResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EntityResponse.Merge(m, src)
 }
-func (m *EchoResponse) XXX_Size() int {
-	return xxx_messageInfo_EchoResponse.Size(m)
+func (m *EntityResponse) XXX_Size() int {
+	return xxx_messageInfo_EntityResponse.Size(m)
 }
-func (m *EchoResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_EchoResponse.DiscardUnknown(m)
+func (m *EntityResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_EntityResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_EchoResponse proto.InternalMessageInfo
+var xxx_messageInfo_EntityResponse proto.InternalMessageInfo
 
-func (m *EchoResponse) GetValue() string {
+func (m *EntityResponse) GetMyBool() bool {
 	if m != nil {
-		return m.Value
+		return m.MyBool
+	}
+	return false
+}
+
+func (m *EntityResponse) GetStatus() string {
+	if m != nil {
+		return m.Status
+	}
+	return ""
+}
+
+func (m *EntityResponse) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
+// Algo.
+type Companyinfo struct {
+	Name                 string       `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Presidents           string       `protobuf:"bytes,2,opt,name=presidents,proto3" json:"presidents,omitempty"`
+	Ocupation            []*Ocupation `protobuf:"bytes,3,rep,name=ocupation,proto3" json:"ocupation,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *Companyinfo) Reset()         { *m = Companyinfo{} }
+func (m *Companyinfo) String() string { return proto.CompactTextString(m) }
+func (*Companyinfo) ProtoMessage()    {}
+func (*Companyinfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_983135ed5bb6dd32, []int{4}
+}
+
+func (m *Companyinfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Companyinfo.Unmarshal(m, b)
+}
+func (m *Companyinfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Companyinfo.Marshal(b, m, deterministic)
+}
+func (m *Companyinfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Companyinfo.Merge(m, src)
+}
+func (m *Companyinfo) XXX_Size() int {
+	return xxx_messageInfo_Companyinfo.Size(m)
+}
+func (m *Companyinfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_Companyinfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Companyinfo proto.InternalMessageInfo
+
+func (m *Companyinfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Companyinfo) GetPresidents() string {
+	if m != nil {
+		return m.Presidents
+	}
+	return ""
+}
+
+func (m *Companyinfo) GetOcupation() []*Ocupation {
+	if m != nil {
+		return m.Ocupation
+	}
+	return nil
+}
+
+// Algo.
+type Ocupation struct {
+	Rubro                string          `protobuf:"bytes,1,opt,name=rubro,proto3" json:"rubro,omitempty"`
+	Workers              int32           `protobuf:"varint,2,opt,name=workers,proto3" json:"workers,omitempty"`
+	Dpto                 []*Departamento `protobuf:"bytes,4,rep,name=dpto,proto3" json:"dpto,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *Ocupation) Reset()         { *m = Ocupation{} }
+func (m *Ocupation) String() string { return proto.CompactTextString(m) }
+func (*Ocupation) ProtoMessage()    {}
+func (*Ocupation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_983135ed5bb6dd32, []int{5}
+}
+
+func (m *Ocupation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Ocupation.Unmarshal(m, b)
+}
+func (m *Ocupation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Ocupation.Marshal(b, m, deterministic)
+}
+func (m *Ocupation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Ocupation.Merge(m, src)
+}
+func (m *Ocupation) XXX_Size() int {
+	return xxx_messageInfo_Ocupation.Size(m)
+}
+func (m *Ocupation) XXX_DiscardUnknown() {
+	xxx_messageInfo_Ocupation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Ocupation proto.InternalMessageInfo
+
+func (m *Ocupation) GetRubro() string {
+	if m != nil {
+		return m.Rubro
+	}
+	return ""
+}
+
+func (m *Ocupation) GetWorkers() int32 {
+	if m != nil {
+		return m.Workers
+	}
+	return 0
+}
+
+func (m *Ocupation) GetDpto() []*Departamento {
+	if m != nil {
+		return m.Dpto
+	}
+	return nil
+}
+
+// Algo.
+type Departamento struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Departamento) Reset()         { *m = Departamento{} }
+func (m *Departamento) String() string { return proto.CompactTextString(m) }
+func (*Departamento) ProtoMessage()    {}
+func (*Departamento) Descriptor() ([]byte, []int) {
+	return fileDescriptor_983135ed5bb6dd32, []int{6}
+}
+
+func (m *Departamento) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Departamento.Unmarshal(m, b)
+}
+func (m *Departamento) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Departamento.Marshal(b, m, deterministic)
+}
+func (m *Departamento) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Departamento.Merge(m, src)
+}
+func (m *Departamento) XXX_Size() int {
+	return xxx_messageInfo_Departamento.Size(m)
+}
+func (m *Departamento) XXX_DiscardUnknown() {
+	xxx_messageInfo_Departamento.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Departamento proto.InternalMessageInfo
+
+func (m *Departamento) GetName() string {
+	if m != nil {
+		return m.Name
 	}
 	return ""
 }
 
 func init() {
-	proto.RegisterType((*EchoRequest)(nil), "managment.companies.property.v1.EchoRequest")
-	proto.RegisterType((*EchoResponse)(nil), "managment.companies.property.v1.EchoResponse")
+	proto.RegisterType((*GetEntityRequest)(nil), "managment.companies.property.v1.GetEntityRequest")
+	proto.RegisterType((*GetEntityResponse)(nil), "managment.companies.property.v1.GetEntityResponse")
+	proto.RegisterType((*EntityRequest)(nil), "managment.companies.property.v1.EntityRequest")
+	proto.RegisterType((*EntityResponse)(nil), "managment.companies.property.v1.EntityResponse")
+	proto.RegisterType((*Companyinfo)(nil), "managment.companies.property.v1.Companyinfo")
+	proto.RegisterType((*Ocupation)(nil), "managment.companies.property.v1.Ocupation")
+	proto.RegisterType((*Departamento)(nil), "managment.companies.property.v1.Departamento")
 }
 
 func init() {
@@ -113,26 +434,51 @@ func init() {
 }
 
 var fileDescriptor_983135ed5bb6dd32 = []byte{
-	// 294 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x32, 0xcb, 0x4d, 0xcc, 0x4b,
-	0x4c, 0x4f, 0xcd, 0x4d, 0xcd, 0x2b, 0xd1, 0x4f, 0xce, 0xcf, 0x2d, 0x48, 0xcc, 0xcb, 0x4c, 0x2d,
-	0xd6, 0x4f, 0xcd, 0x2b, 0xc9, 0x2c, 0xa9, 0xd4, 0x2f, 0x33, 0x84, 0xb2, 0x8a, 0x53, 0x8b, 0xca,
-	0x32, 0x93, 0x53, 0xe3, 0x13, 0x0b, 0x32, 0xf5, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xe4, 0xc1,
-	0xfa, 0x40, 0xda, 0xf4, 0xe0, 0xda, 0x40, 0x52, 0x05, 0xa9, 0x45, 0x25, 0x95, 0x7a, 0x65, 0x86,
-	0x52, 0x32, 0xe9, 0xf9, 0xf9, 0xe9, 0x39, 0xa9, 0xfa, 0x89, 0x05, 0x99, 0xfa, 0x89, 0x79, 0x79,
-	0xf9, 0x25, 0x89, 0x25, 0x99, 0xf9, 0x79, 0xc5, 0x10, 0xed, 0x4a, 0xca, 0x5c, 0xdc, 0xae, 0xc9,
-	0x19, 0xf9, 0x41, 0xa9, 0x85, 0xa5, 0xa9, 0xc5, 0x25, 0x42, 0x22, 0x5c, 0xac, 0x65, 0x89, 0x39,
-	0xa5, 0xa9, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x10, 0x8e, 0x92, 0x0a, 0x17, 0x0f, 0x44,
-	0x51, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0x2a, 0x76, 0x55, 0x46, 0x53, 0x19, 0xb9, 0x04, 0x5c, 0x91,
-	0x5d, 0xe9, 0x18, 0xe0, 0x29, 0xd4, 0xc0, 0xc8, 0xc5, 0x02, 0xd2, 0x2b, 0xa4, 0xa3, 0x47, 0xc0,
-	0xa1, 0x7a, 0x48, 0xee, 0x90, 0xd2, 0x25, 0x52, 0x35, 0xc4, 0x41, 0x4a, 0xd2, 0x4d, 0x97, 0x9f,
-	0x4c, 0x66, 0x12, 0x55, 0x12, 0x00, 0x87, 0x54, 0x45, 0x62, 0x6e, 0x41, 0x4e, 0xaa, 0x7e, 0x6a,
-	0x72, 0x46, 0xbe, 0x15, 0xa3, 0x96, 0xd3, 0x14, 0x46, 0x2e, 0xe5, 0xe4, 0xfc, 0x5c, 0x42, 0x26,
-	0x3a, 0x89, 0xa2, 0x3a, 0xbe, 0x20, 0x33, 0x00, 0x14, 0x42, 0x01, 0x8c, 0x51, 0x5c, 0x30, 0x55,
-	0x65, 0x86, 0x8b, 0x98, 0x98, 0x7d, 0x9d, 0x03, 0x56, 0x31, 0xc9, 0xfb, 0xc2, 0x0d, 0x73, 0x86,
-	0x1b, 0x16, 0x00, 0x33, 0x2c, 0xcc, 0xf0, 0x14, 0x92, 0x8a, 0x18, 0xb8, 0x8a, 0x18, 0x98, 0x8a,
-	0x98, 0x30, 0xc3, 0x24, 0x36, 0x70, 0x04, 0x18, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x96, 0xe3,
-	0xd7, 0xde, 0xf9, 0x01, 0x00, 0x00,
+	// 703 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xcd, 0x6e, 0xd3, 0x4a,
+	0x14, 0xae, 0x93, 0x34, 0xbd, 0x99, 0xdc, 0xfe, 0xdc, 0xb9, 0x2d, 0x8d, 0xa2, 0xaa, 0xb5, 0xcc,
+	0x26, 0xaa, 0x5a, 0x3b, 0x76, 0x25, 0xa8, 0xb2, 0x22, 0x29, 0x55, 0xdb, 0x45, 0x21, 0xb2, 0xa0,
+	0x0b, 0x54, 0xa9, 0x9a, 0x38, 0x53, 0xd7, 0x60, 0xfb, 0x0c, 0x33, 0x93, 0x94, 0x80, 0x40, 0x88,
+	0x2d, 0x12, 0x0b, 0x78, 0x01, 0xc4, 0x82, 0x05, 0x4f, 0xc0, 0x9e, 0x1d, 0x5b, 0x5e, 0x81, 0x07,
+	0x41, 0x9e, 0xd4, 0xf9, 0xa1, 0x95, 0xd2, 0xae, 0x3c, 0xe7, 0xcc, 0xf7, 0x7d, 0xf3, 0x9d, 0xe3,
+	0x39, 0x83, 0xee, 0x44, 0x24, 0x26, 0x3e, 0x8d, 0x68, 0x2c, 0x2d, 0x0f, 0x22, 0x46, 0xe2, 0x80,
+	0x0a, 0x8b, 0xc6, 0x32, 0x90, 0x3d, 0xab, 0x6b, 0x5f, 0xac, 0x04, 0xe5, 0xdd, 0xc0, 0xa3, 0x27,
+	0x84, 0x05, 0x26, 0xe3, 0x20, 0x01, 0xaf, 0x29, 0x5e, 0x42, 0x33, 0x07, 0xb4, 0x64, 0x8b, 0x51,
+	0x2e, 0x7b, 0x66, 0xd7, 0x2e, 0xaf, 0xf8, 0x00, 0x7e, 0x48, 0x2d, 0xc2, 0x02, 0x8b, 0xc4, 0x31,
+	0x48, 0x22, 0x03, 0x88, 0x45, 0x9f, 0x5e, 0xde, 0x50, 0x1f, 0x6f, 0xd3, 0xa7, 0xf1, 0xa6, 0x38,
+	0x27, 0xbe, 0x4f, 0xb9, 0x05, 0x4c, 0x21, 0x2e, 0xa3, 0x8d, 0x0a, 0x5a, 0xd8, 0xa3, 0x72, 0x57,
+	0x59, 0x71, 0xe9, 0xf3, 0x0e, 0x15, 0x12, 0x2f, 0xa2, 0xe9, 0x2e, 0x09, 0x3b, 0xb4, 0xa4, 0xe9,
+	0x5a, 0xa5, 0xe0, 0xf6, 0x03, 0xe3, 0x87, 0x86, 0xfe, 0x1b, 0x81, 0x0a, 0x06, 0xb1, 0xa0, 0x78,
+	0x19, 0xcd, 0x44, 0xbd, 0x93, 0x16, 0x40, 0xa8, 0xd0, 0xff, 0xb8, 0xf9, 0xa8, 0xd7, 0x00, 0x08,
+	0x31, 0x46, 0x39, 0x0f, 0xda, 0xb4, 0x94, 0x55, 0x1a, 0x6a, 0x8d, 0x57, 0x51, 0xa1, 0x4d, 0x85,
+	0x47, 0x39, 0x07, 0x5e, 0xca, 0x25, 0x1b, 0xfb, 0x53, 0xee, 0x30, 0x85, 0x9b, 0xa8, 0xd8, 0xaf,
+	0xb8, 0x17, 0xc4, 0xa7, 0x50, 0x9a, 0xd6, 0xb5, 0x4a, 0xd1, 0xd9, 0x30, 0x27, 0xf4, 0xc3, 0xdc,
+	0x19, 0x72, 0xf6, 0xa7, 0xdc, 0x51, 0x89, 0xc6, 0x3c, 0x9a, 0xa5, 0x2f, 0x48, 0xc4, 0x42, 0x7a,
+	0x02, 0x31, 0x85, 0x53, 0xa3, 0x83, 0x66, 0xaf, 0x51, 0x2c, 0x7e, 0x30, 0xee, 0x24, 0x73, 0x73,
+	0x27, 0x63, 0x3e, 0x8c, 0xc7, 0x68, 0xee, 0xba, 0x8d, 0xbb, 0x85, 0xf2, 0x42, 0x12, 0xd9, 0x11,
+	0xea, 0xd4, 0x82, 0x7b, 0x11, 0x5d, 0xd5, 0x50, 0xe3, 0xbd, 0x86, 0x8a, 0x23, 0x67, 0x26, 0x98,
+	0x98, 0x44, 0x69, 0x2d, 0x6a, 0x8d, 0x57, 0x11, 0x62, 0x9c, 0x8a, 0xa0, 0x4d, 0x63, 0x99, 0x6a,
+	0x8e, 0x64, 0xf0, 0x3e, 0x2a, 0x80, 0xd7, 0x61, 0xea, 0x56, 0x94, 0xb2, 0x7a, 0xb6, 0x52, 0x74,
+	0xd6, 0x27, 0x16, 0xfa, 0x30, 0x65, 0xb8, 0x43, 0xb2, 0xf1, 0x06, 0x15, 0x06, 0xf9, 0xa4, 0xaf,
+	0xbc, 0xd3, 0xe2, 0x90, 0xf6, 0x55, 0x05, 0xb8, 0x84, 0x66, 0xce, 0x81, 0x3f, 0xa3, 0xbc, 0xef,
+	0x64, 0xda, 0x4d, 0x43, 0x5c, 0x47, 0xb9, 0x36, 0x93, 0x50, 0xca, 0x29, 0x07, 0x9b, 0x13, 0x1d,
+	0xdc, 0xa7, 0x8c, 0x70, 0x49, 0x12, 0x04, 0xb8, 0x8a, 0x6a, 0x18, 0xe8, 0xdf, 0xd1, 0xec, 0x55,
+	0xdd, 0x70, 0xbe, 0x66, 0xd0, 0xc2, 0xee, 0xe8, 0xe0, 0xd5, 0x9b, 0x07, 0xf8, 0xad, 0x86, 0xf2,
+	0xfd, 0x24, 0x36, 0x27, 0x1e, 0x3c, 0x76, 0x7d, 0xca, 0xd6, 0xb5, 0xf1, 0xfd, 0xff, 0x6e, 0x2c,
+	0xbd, 0xfb, 0xf5, 0xfb, 0x53, 0x66, 0xde, 0x40, 0xc3, 0x27, 0xa0, 0xa6, 0xad, 0xe3, 0x0f, 0x1a,
+	0x2a, 0x0c, 0xa6, 0x0b, 0xdb, 0x13, 0x55, 0xff, 0x1e, 0xda, 0xb2, 0x73, 0x13, 0xca, 0x85, 0x97,
+	0xb2, 0xf2, 0xb2, 0x88, 0xf1, 0xd0, 0x8b, 0xf5, 0x4a, 0x0d, 0xc0, 0xeb, 0xc6, 0xf7, 0xcc, 0xc7,
+	0xfa, 0x67, 0x0d, 0xfb, 0x68, 0x79, 0x27, 0x55, 0xd3, 0xeb, 0xcd, 0x03, 0xbd, 0x0f, 0xd3, 0xbb,
+	0xb6, 0xb1, 0x87, 0xf0, 0xa3, 0x33, 0xaa, 0x4b, 0x2a, 0xa4, 0xde, 0x0a, 0x89, 0x90, 0x6d, 0x00,
+	0x8e, 0x57, 0xce, 0xa4, 0x64, 0xa2, 0x66, 0x59, 0x7e, 0x20, 0xcf, 0x3a, 0xad, 0xc4, 0x8b, 0x05,
+	0x82, 0x85, 0xe4, 0x25, 0xd9, 0x72, 0xca, 0xff, 0x83, 0xf0, 0x08, 0xa7, 0xb1, 0x74, 0xee, 0xf9,
+	0x11, 0x09, 0xc2, 0x64, 0xdb, 0xc9, 0xda, 0x66, 0xb5, 0x3c, 0x67, 0x3b, 0x77, 0xcd, 0xaa, 0x59,
+	0x35, 0xed, 0xda, 0x76, 0x75, 0xbb, 0xba, 0xae, 0x69, 0xce, 0x02, 0x61, 0x2c, 0x0c, 0x3c, 0x75,
+	0x9f, 0xac, 0xa7, 0x02, 0xe2, 0xda, 0xa5, 0x0c, 0xba, 0xed, 0x41, 0x34, 0xa9, 0xf2, 0xc6, 0xd2,
+	0xf8, 0x1f, 0x67, 0x41, 0x33, 0x79, 0xfb, 0x9a, 0xda, 0x13, 0x94, 0xa2, 0xba, 0xf6, 0x97, 0x4c,
+	0xf6, 0x70, 0xa7, 0xf9, 0x2d, 0xb3, 0x76, 0x38, 0x10, 0x1b, 0x14, 0x6e, 0x36, 0x53, 0xb1, 0x23,
+	0xfb, 0xe7, 0x08, 0xe2, 0x78, 0x80, 0x38, 0x4e, 0x11, 0xc7, 0x47, 0x76, 0x2b, 0xaf, 0x9e, 0xd6,
+	0xad, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x60, 0x6f, 0x7c, 0xf4, 0x01, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -148,7 +494,9 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type EntityserviceAPIClient interface {
 	//Doc.
-	Echo(ctx context.Context, in *EchoRequest, opts ...grpc.CallOption) (*EchoResponse, error)
+	Entity(ctx context.Context, in *EntityRequest, opts ...grpc.CallOption) (*EntityResponse, error)
+	// Doc.
+	GetEntity(ctx context.Context, in *GetEntityRequest, opts ...grpc.CallOption) (*GetEntityResponse, error)
 }
 
 type entityserviceAPIClient struct {
@@ -159,9 +507,18 @@ func NewEntityserviceAPIClient(cc *grpc.ClientConn) EntityserviceAPIClient {
 	return &entityserviceAPIClient{cc}
 }
 
-func (c *entityserviceAPIClient) Echo(ctx context.Context, in *EchoRequest, opts ...grpc.CallOption) (*EchoResponse, error) {
-	out := new(EchoResponse)
-	err := c.cc.Invoke(ctx, "/managment.companies.property.v1.EntityserviceAPI/Echo", in, out, opts...)
+func (c *entityserviceAPIClient) Entity(ctx context.Context, in *EntityRequest, opts ...grpc.CallOption) (*EntityResponse, error) {
+	out := new(EntityResponse)
+	err := c.cc.Invoke(ctx, "/managment.companies.property.v1.EntityserviceAPI/Entity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *entityserviceAPIClient) GetEntity(ctx context.Context, in *GetEntityRequest, opts ...grpc.CallOption) (*GetEntityResponse, error) {
+	out := new(GetEntityResponse)
+	err := c.cc.Invoke(ctx, "/managment.companies.property.v1.EntityserviceAPI/GetEntity", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -171,35 +528,58 @@ func (c *entityserviceAPIClient) Echo(ctx context.Context, in *EchoRequest, opts
 // EntityserviceAPIServer is the server API for EntityserviceAPI service.
 type EntityserviceAPIServer interface {
 	//Doc.
-	Echo(context.Context, *EchoRequest) (*EchoResponse, error)
+	Entity(context.Context, *EntityRequest) (*EntityResponse, error)
+	// Doc.
+	GetEntity(context.Context, *GetEntityRequest) (*GetEntityResponse, error)
 }
 
 // UnimplementedEntityserviceAPIServer can be embedded to have forward compatible implementations.
 type UnimplementedEntityserviceAPIServer struct {
 }
 
-func (*UnimplementedEntityserviceAPIServer) Echo(ctx context.Context, req *EchoRequest) (*EchoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Echo not implemented")
+func (*UnimplementedEntityserviceAPIServer) Entity(ctx context.Context, req *EntityRequest) (*EntityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Entity not implemented")
+}
+func (*UnimplementedEntityserviceAPIServer) GetEntity(ctx context.Context, req *GetEntityRequest) (*GetEntityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEntity not implemented")
 }
 
 func RegisterEntityserviceAPIServer(s *grpc.Server, srv EntityserviceAPIServer) {
 	s.RegisterService(&_EntityserviceAPI_serviceDesc, srv)
 }
 
-func _EntityserviceAPI_Echo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EchoRequest)
+func _EntityserviceAPI_Entity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EntityRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EntityserviceAPIServer).Echo(ctx, in)
+		return srv.(EntityserviceAPIServer).Entity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/managment.companies.property.v1.EntityserviceAPI/Echo",
+		FullMethod: "/managment.companies.property.v1.EntityserviceAPI/Entity",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EntityserviceAPIServer).Echo(ctx, req.(*EchoRequest))
+		return srv.(EntityserviceAPIServer).Entity(ctx, req.(*EntityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EntityserviceAPI_GetEntity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEntityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EntityserviceAPIServer).GetEntity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/managment.companies.property.v1.EntityserviceAPI/GetEntity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EntityserviceAPIServer).GetEntity(ctx, req.(*GetEntityRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -209,8 +589,12 @@ var _EntityserviceAPI_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*EntityserviceAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Echo",
-			Handler:    _EntityserviceAPI_Echo_Handler,
+			MethodName: "Entity",
+			Handler:    _EntityserviceAPI_Entity_Handler,
+		},
+		{
+			MethodName: "GetEntity",
+			Handler:    _EntityserviceAPI_GetEntity_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
